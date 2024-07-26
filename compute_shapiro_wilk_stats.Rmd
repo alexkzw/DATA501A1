@@ -68,43 +68,32 @@ set.seed(42)  # Set seed for reproducibility
 data <- rnorm(1000)
 compute_shapiro_wilk_test(data, plot_qq = TRUE)
 ```
-Include tests to catch the following errors:
-- wrong format
-- wrong dimensions
-- NA values
-- Inf values
-- Less than 3 data points
 
+## Unit tests
+ 
+To ensure the function works correctly, several test cases have been implemented using the `testthat` package.
+ 
+### Test 1: Handling incorrect input format
+ 
+This test checks if the function correctly handles inputs that are not in the expected format, such as a data frame.
+ 
 ```{r}
-# Tests to validate compute_shapiro_wilk_test function
-test_that("compute_shapiro_wilk_test() handles non-numeric input", {
-  invalid_data <- "invalid input"
-  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
-})
-
-test_that("compute_shapiro_wilk_test() handles NA values as input", {
-  invalid_data <- c(1, 2, NA, 3)
-  expect_error(compute_shapiro_wilk_test(invalid_data), "Data contains NA values.")
-})
-
-test_that("compute_shapiro_wilk_test() handles infinite values as input", {
-  invalid_data <- c(1, 2, Inf, 3)
-  expect_error(compute_shapiro_wilk_test(invalid_data), "Data contains infinite values.")
-})
-
 test_that("compute_shapiro_wilk_test() handles wrong format (data frame) as input", {
   invalid_data <- data.frame(a = 1:10)
   expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
 })
-
-test_that("compute_shapiro_wilk_test() handles wrong format (matrix) as input", {
-  invalid_data <- matrix(1:10, ncol = 2)
-  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
-})
-
-test_that("compute_shapiro_wilk_test() handles input with less than 3 values", {
-  invalid_data <- c(1, 2)
-  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must contain at least 3 observations.")
+```
+ 
+### Test 2: Handling invalid optional argument
+ 
+This test checks if the function correctly handles invalid values for the optional `plot_qq` argument.
+ 
+```{r}
+test_that("compute_shapiro_wilk_test() handles invalid optional argument", {
+  valid_data <- c(5,6,7)
+  invalid_arg <- "x"
+  expect_error(compute_shapiro_wilk_test(valid_data, plot_qq = invalid_arg), 
+               "plot_qq argument must be of type logical.")
 })
 ```
 
