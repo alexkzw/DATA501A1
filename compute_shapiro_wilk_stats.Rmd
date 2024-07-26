@@ -21,6 +21,7 @@ compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     if (any(is.na(data))) stop("Data contains NA values.")
     if (any(is.infinite(data))) stop("Data contains infinite values.")
     if (length(data) < 3) stop("Data must contain at least 3 observations.")
+    if (!is.logical(plot_qq)) stop("plot_qq argument must be of type logical.")
     
     n <- length(data)
     sorted_data <- sort(data)
