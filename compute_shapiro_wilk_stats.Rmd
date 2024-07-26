@@ -15,6 +15,22 @@ The program calculates and returns the test statistics W used in a Shapiro–Wil
 Github link: [Github](https://github.com/alexkzw/DATA501A1)
 
 ```{r}
+#' Compute Shapiro-Wilk Test Statistic
+#'
+#' This function calculates the Shapiro-Wilk W statistic to determine 
+#' if a sample is normally distributed.
+#'
+#' @param data A numeric vector of data.
+#' @param plot_qq A logical value indicating whether to plot the QQ plot. Default is FALSE.
+#'
+#' @return The Shapiro-Wilk W statistic.
+#' @export
+#'
+#' @examples
+#' set.seed(42)
+#' data <- rnorm(1000)
+#' compute_shapiro_wilk_test(data, plot_qq = TRUE)
+
 compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     #input validation
     if (!is.vector(data, mode = "numeric")) stop("Data must be a numeric vector.")
