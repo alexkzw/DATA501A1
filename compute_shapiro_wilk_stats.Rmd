@@ -11,6 +11,27 @@ knitr::opts_chunk$set(echo = TRUE)
 The program calculates and returns the test statistics W used in a Shapiro–Wilk test used to determine if the sample is normally distributed
 
 ```{r}
-
+compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
+    
+    n <- length(data)
+    sorted_data <- sort(data)
+    
+    # Calculate mean and standard deviation of the data
+    mean_data <- mean(sorted_data)
+    sd_data <- sd(sorted_data)
+    
+    # Calculate expected normal order statistics
+    m <- qnorm((1:n - 0.375) / (n + 0.25))
+    
+    # Calculate Shapiro-Wilk W statistic
+    W <- sum((sorted_data - mean_data) * m)^2 / ((n - 1) * sd_data^2)
+    
+    if (plot_qq) {
+        qqnorm(data, main="QQ Plot")
+        qqline(data, col = "blue")
+    }
+    
+    return(W)
+}
 ```
 
