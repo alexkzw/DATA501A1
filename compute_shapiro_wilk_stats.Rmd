@@ -1,0 +1,16 @@
+---
+title: "Compute Shapiro-Wilk statistics"
+output: html_document
+date: "2024-07-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The program calculates and returns the test statistics W used in a Shapiro–Wilk test used to determine if the sample is normally distributed
+
+```{r}
+
+```
+
