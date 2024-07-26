@@ -1,5 +1,6 @@
 ---
 title: "Compute Shapiro-Wilk statistics"
+author: "Alex Koh"
 output: html_document
 date: "2024-07-26"
 ---
