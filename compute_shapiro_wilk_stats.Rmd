@@ -63,6 +63,10 @@ compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     
     return(W)
 }
+# Example usage
+set.seed(42)  # Set seed for reproducibility
+data <- rnorm(1000)
+compute_shapiro_wilk_test(data, plot_qq = TRUE)
 ```
 Include tests to catch the following errors:
 - wrong format
