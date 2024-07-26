@@ -12,6 +12,8 @@ library(testthat)
 
 The program calculates and returns the test statistics W used in a Shapiro–Wilk test used to determine if the sample is normally distributed
 
+Github link: [Github](https://github.com/alexkzw/DATA501A1)
+
 ```{r}
 compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     #input validation
