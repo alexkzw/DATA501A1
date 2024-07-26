@@ -33,6 +33,10 @@ compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     # Calculate expected normal order statistics
     m <- qnorm((1:n - 0.375) / (n + 0.25))
     
+    # Calculate weights
+    c <- cov(sorted_data, m)
+    a <- c / sqrt(sum(c^2))
+    
     # Calculate Shapiro-Wilk W statistic
     W <- sum((sorted_data - mean_data) * m)^2 / ((n - 1) * sd_data^2)
     
