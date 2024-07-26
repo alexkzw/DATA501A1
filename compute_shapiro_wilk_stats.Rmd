@@ -12,6 +12,12 @@ The program calculates and returns the test statistics W used in a Shapiro–Wil
 
 ```{r}
 compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
+    #input validation
+    if (!is.vector(data, mode = "numeric")) stop("Data must be a numeric vector")
+    if (any(is.na(data))) stop("Data contains NA values.")
+    if (any(is.infinite(data))) stop("Data contains infinite values.")
+    if (length(data) < 3) stop("Data must contain at least 3 observations
+                               for the Shapiro-Wilk test to be meaningful.")
     
     n <- length(data)
     sorted_data <- sort(data)
