@@ -6,6 +6,7 @@ date: "2024-07-26"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(testthat)
 ```
 
 The program calculates and returns the test statistics W used in a Shapiro–Wilk test used to determine if the sample is normally distributed
@@ -13,11 +14,10 @@ The program calculates and returns the test statistics W used in a Shapiro–Wil
 ```{r}
 compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     #input validation
-    if (!is.vector(data, mode = "numeric")) stop("Data must be a numeric vector")
+    if (!is.vector(data, mode = "numeric")) stop("Data must be a numeric vector.")
     if (any(is.na(data))) stop("Data contains NA values.")
     if (any(is.infinite(data))) stop("Data contains infinite values.")
-    if (length(data) < 3) stop("Data must contain at least 3 observations
-                               for the Shapiro-Wilk test to be meaningful.")
+    if (length(data) < 3) stop("Data must contain at least 3 observations.")
     
     n <- length(data)
     sorted_data <- sort(data)
@@ -39,5 +39,44 @@ compute_shapiro_wilk_test <- function(data, plot_qq = FALSE) {
     
     return(W)
 }
+```
+Include tests to catch the following errors:
+- wrong format
+- wrong dimensions
+- NA values
+- Inf values
+- Less than 3 data points
+
+```{r}
+# Tests to validate compute_shapiro_wilk_test function
+test_that("compute_shapiro_wilk_test() handles non-numeric input", {
+  invalid_data <- "invalid input"
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
+})
+
+test_that("compute_shapiro_wilk_test() handles NA values as input", {
+  invalid_data <- c(1, 2, NA, 3)
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data contains NA values.")
+})
+
+test_that("compute_shapiro_wilk_test() handles infinite values as input", {
+  invalid_data <- c(1, 2, Inf, 3)
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data contains infinite values.")
+})
+
+test_that("compute_shapiro_wilk_test() handles wrong format (data frame) as input", {
+  invalid_data <- data.frame(a = 1:10)
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
+})
+
+test_that("compute_shapiro_wilk_test() handles wrong format (matrix) as input", {
+  invalid_data <- matrix(1:10, ncol = 2)
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must be a numeric vector.")
+})
+
+test_that("compute_shapiro_wilk_test() handles input with less than 3 values", {
+  invalid_data <- c(1, 2)
+  expect_error(compute_shapiro_wilk_test(invalid_data), "Data must contain at least 3 observations.")
+})
 ```
 
